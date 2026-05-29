@@ -20,8 +20,5 @@ jobs:
         distribution: 'temurin'
         cache: maven
         
-    - name: Build with Maven
-      run: mvn -pl PatientService clean package
-      
-    - name: Run Tests
-      run: mvn -pl PatientService test
+    - name: Build and Test with Maven
+      run: mvn -pl PatientService spotless:check clean package
