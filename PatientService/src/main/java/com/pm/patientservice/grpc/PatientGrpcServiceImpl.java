@@ -15,7 +15,8 @@ public class PatientGrpcServiceImpl extends PatientGrpcServiceGrpc.PatientGrpcSe
   @Autowired private PatientService patientService;
 
   @Override
-  public void getPatientById(PatientRequest request, StreamObserver<PatientResponse> responseObserver) {
+  public void getPatientById(
+      PatientRequest request, StreamObserver<PatientResponse> responseObserver) {
     PatientResponseDTO patient = patientService.getPatientById(UUID.fromString(request.getId()));
     responseObserver.onNext(mapToGrpcResponse(patient));
     responseObserver.onCompleted();
