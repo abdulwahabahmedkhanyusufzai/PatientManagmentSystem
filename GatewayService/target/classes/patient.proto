@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package com.pm.patientservice;
+
+option java_multiple_files = true;
+option java_package = "com.pm.patientservice.grpc";
+option java_outer_classname = "PatientProto";
+
+message PatientRequest {
+  string id = 1;
+}
+
+message PatientResponse {
+  string id = 1;
+  string name = 2;
+  string email = 3;
+  string address = 4;
+  string date_of_birth = 5;
+  string registered_date = 6;
+}
+
+message Empty {}
+
+message PatientListResponse {
+  repeated PatientResponse patients = 1;
+}
+
+service PatientGrpcService {
+  rpc GetPatientById (PatientRequest) returns (PatientResponse);
+  rpc GetAllPatients (Empty) returns (PatientListResponse);
+}
