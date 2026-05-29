@@ -13,5 +13,4 @@ VALUES ('123e4567-e89b-12d3-a456-426614174000', 'John Doe', 'john.doe@example.co
        ('223e4567-e89b-12d3-a456-426614174011', 'Ethan Martinez', 'ethan.martinez@example.com', '987 Redwood St, Springfield', '1984-05-03', '2024-05-12'),
        ('223e4567-e89b-12d3-a456-426614174012', 'Sophia Clark', 'sophia.clark@example.com', '123 Hickory St, Shelbyville', '1991-12-25', '2022-11-11'),
        ('223e4567-e89b-12d3-a456-426614174013', 'Daniel Lewis', 'daniel.lewis@example.com', '456 Cypress St, Capital City', '1976-06-08', '2023-09-19'),
-       ('223e4567-e89b-12d3-a456-426614174014', 'Isabella Walker', 'isabella.walker@example.com', '789 Willow St, Springfield', '1987-10-17', '2024-03-29')
-ON CONFLICT (id) DO NOTHING;
+       ('223e4567-e89b-12d3-a456-426614174014', 'Isabella Walker', 'isabella.walker@example.com', '789 Willow St, Springfield', '1987-10-17', '2024-03-29');

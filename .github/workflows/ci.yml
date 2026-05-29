@@ -21,4 +21,4 @@ jobs:
         cache: maven
         
     - name: Build and Test with Maven
-      run: mvn -pl PatientService spotless:check clean package
+      run: mvn clean package

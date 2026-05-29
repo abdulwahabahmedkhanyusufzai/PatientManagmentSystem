@@ -35,6 +35,20 @@ services:
       db:
         condition: service_healthy
 
+  gateway-service:
+    build:
+      context: ./GatewayService
+      dockerfile: Dockerfile
+    container_name: gateway-service
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_CLOUD_GATEWAY_ROUTES_0_ID=patient-service
+      - SPRING_CLOUD_GATEWAY_ROUTES_0_URI=http://patient-service:4000
+      - SPRING_CLOUD_GATEWAY_ROUTES_0_PREDICATES_0=Path=/patients/**
+    depends_on:
+      - patient-service
+
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus
