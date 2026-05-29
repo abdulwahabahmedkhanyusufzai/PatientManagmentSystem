@@ -1,1 +1,4 @@
+com\pm\gatewayservice\config\LoggingConfig.class
+com\pm\gatewayservice\exception\GlobalErrorWebExceptionHandler.class
 com\pm\gatewayservice\GatewayServiceApplication.class
+com\pm\gatewayservice\controller\FallbackController.class
