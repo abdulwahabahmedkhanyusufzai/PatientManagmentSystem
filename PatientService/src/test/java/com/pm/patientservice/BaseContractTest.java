@@ -1,5 +1,7 @@
 package com.pm.patientservice;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
+
 import com.pm.patientservice.dto.PatientResponseDTO;
 import com.pm.patientservice.service.PatientService;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
@@ -10,21 +12,23 @@ import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.web.context.WebApplicationContext;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-@WithMockUser
 public abstract class BaseContractTest {
 
   @Autowired private WebApplicationContext context;
 
   @MockitoBean private PatientService patientService;
 
+  @MockitoBean private JwtDecoder jwtDecoder;
+
   @BeforeEach
   public void setup() {
     RestAssuredMockMvc.webAppContextSetup(context);
+    RestAssuredMockMvc.postProcessors(jwt());
 
     PatientResponseDTO patient = new PatientResponseDTO();
     patient.setId(UUID.fromString("123e4567-e89b-12d3-a456-426614174000"));

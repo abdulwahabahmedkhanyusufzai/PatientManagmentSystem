@@ -16,6 +16,11 @@ spring:
           predicates:
             - Path=/patients/**
           filters:
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 10
+                redis-rate-limiter.burstCapacity: 20
+                key-resolver: "#{@userKeyResolver}"
             - name: CircuitBreaker
               args:
                 name: patientServiceCB
@@ -29,6 +34,11 @@ spring:
                   maxBackoff: 50ms
                   factor: 2
                   basedOnPreviousValue: false
+
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: 6379
 
 resilience4j:
   circuitbreaker:

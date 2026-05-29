@@ -9,7 +9,10 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 
 @SpringBootTest(
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-    properties = {"PATIENT_SERVICE_URI=http://localhost:8090"})
+    properties = {
+      "PATIENT_SERVICE_URI=http://localhost:8090",
+      "spring.cloud.gateway.redis-rate-limiter.enabled=false"
+    })
 @AutoConfigureStubRunner(
     ids = "com.pm:PatientService:+:stubs:8090",
     stubsMode = StubRunnerProperties.StubsMode.LOCAL)

@@ -57,8 +57,10 @@ services:
       - SPRING_CLOUD_GATEWAY_ROUTES_0_ID=patient-service
       - SPRING_CLOUD_GATEWAY_ROUTES_0_URI=http://patient-service:4000
       - SPRING_CLOUD_GATEWAY_ROUTES_0_PREDICATES_0=Path=/patients/**
+      - REDIS_HOST=redis
     depends_on:
       - patient-service
+      - redis
 
   prometheus:
     image: prom/prometheus:latest

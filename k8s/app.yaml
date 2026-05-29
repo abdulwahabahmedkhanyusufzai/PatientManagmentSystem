@@ -89,6 +89,8 @@ spec:
               value: http://patient-service:4000
             - name: SPRING_CLOUD_GATEWAY_ROUTES_0_PREDICATES_0
               value: Path=/patients/**
+            - name: REDIS_HOST
+              value: redis
           livenessProbe:
             httpGet:
               path: /actuator/health

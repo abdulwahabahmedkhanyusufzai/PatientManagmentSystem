@@ -3,6 +3,7 @@ package com.pm.patientservice.controller;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -21,19 +22,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 @WebMvcTest(PatientController.class)
 @Import(SecurityConfig.class)
-@WithMockUser
 class PatientControllerTest {
 
   @Autowired private MockMvc mockMvc;
 
   @MockitoBean private PatientService patientService;
+
+  @MockitoBean private JwtDecoder jwtDecoder;
 
   @Autowired private ObjectMapper objectMapper;
 
@@ -44,7 +46,8 @@ class PatientControllerTest {
 
     when(patientService.getPatients()).thenReturn(List.of(patient));
 
-    MvcResult result = mockMvc.perform(get("/patients")).andExpect(status().isOk()).andReturn();
+    MvcResult result =
+        mockMvc.perform(get("/patients").with(jwt())).andExpect(status().isOk()).andReturn();
 
     String content = result.getResponse().getContentAsString();
     assertThat(content).contains("John Doe");
@@ -59,7 +62,7 @@ class PatientControllerTest {
     when(patientService.getPatientById(id)).thenReturn(patient);
 
     MvcResult result =
-        mockMvc.perform(get("/patients/" + id)).andExpect(status().isOk()).andReturn();
+        mockMvc.perform(get("/patients/" + id).with(jwt())).andExpect(status().isOk()).andReturn();
 
     String content = result.getResponse().getContentAsString();
     assertThat(content).contains("John Doe");
@@ -82,6 +85,7 @@ class PatientControllerTest {
     mockMvc
         .perform(
             post("/patients")
+                .with(jwt())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request)))
         .andExpect(status().isOk());
@@ -95,6 +99,7 @@ class PatientControllerTest {
     mockMvc
         .perform(
             post("/patients")
+                .with(jwt())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request)))
         .andExpect(status().isBadRequest());
@@ -104,6 +109,6 @@ class PatientControllerTest {
   void deletePatient_returnsNoContent() throws Exception {
     UUID id = UUID.randomUUID();
 
-    mockMvc.perform(delete("/patients/" + id)).andExpect(status().isNoContent());
+    mockMvc.perform(delete("/patients/" + id).with(jwt())).andExpect(status().isNoContent());
   }
 }
