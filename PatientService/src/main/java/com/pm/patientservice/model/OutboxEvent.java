@@ -31,7 +31,8 @@ public class OutboxEvent {
   // Constructors, Getters, Setters
   public OutboxEvent() {}
 
-  public OutboxEvent(UUID id, String aggregateType, String aggregateId, String type, String payload) {
+  public OutboxEvent(
+      UUID id, String aggregateType, String aggregateId, String type, String payload) {
     this.id = id;
     this.aggregateType = aggregateType;
     this.aggregateId = aggregateId;
@@ -40,16 +41,51 @@ public class OutboxEvent {
     this.createdAt = OffsetDateTime.now();
   }
 
-  public UUID getId() { return id; }
-  public void setId(UUID id) { this.id = id; }
-  public String getAggregateType() { return aggregateType; }
-  public void setAggregateType(String aggregateType) { this.aggregateType = aggregateType; }
-  public String getAggregateId() { return aggregateId; }
-  public void setAggregateId(String aggregateId) { this.aggregateId = aggregateId; }
-  public String getType() { return type; }
-  public void setType(String type) { this.type = type; }
-  public String getPayload() { return payload; }
-  public void setPayload(String payload) { this.payload = payload; }
-  public OffsetDateTime getCreatedAt() { return createdAt; }
-  public void setCreatedAt(OffsetDateTime createdAt) { this.createdAt = createdAt; }
+  public UUID getId() {
+    return id;
+  }
+
+  public void setId(UUID id) {
+    this.id = id;
+  }
+
+  public String getAggregateType() {
+    return aggregateType;
+  }
+
+  public void setAggregateType(String aggregateType) {
+    this.aggregateType = aggregateType;
+  }
+
+  public String getAggregateId() {
+    return aggregateId;
+  }
+
+  public void setAggregateId(String aggregateId) {
+    this.aggregateId = aggregateId;
+  }
+
+  public String getType() {
+    return type;
+  }
+
+  public void setType(String type) {
+    this.type = type;
+  }
+
+  public String getPayload() {
+    return payload;
+  }
+
+  public void setPayload(String payload) {
+    this.payload = payload;
+  }
+
+  public OffsetDateTime getCreatedAt() {
+    return createdAt;
+  }
+
+  public void setCreatedAt(OffsetDateTime createdAt) {
+    this.createdAt = createdAt;
+  }
 }

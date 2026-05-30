@@ -20,7 +20,8 @@ public class PatientEventListener {
 
   @KafkaListener(topics = "patient-events", groupId = "notification-group")
   public void handlePatientEvent(PatientEvent event) {
-    logger.info("Received event: {} for patient ID: {}", event.getEventType(), event.getPatientId());
+    logger.info(
+        "Received event: {} for patient ID: {}", event.getEventType(), event.getPatientId());
 
     if ("PATIENT_CREATED".equals(event.getEventType())) {
       sendWelcomeEmail(event);
@@ -32,7 +33,9 @@ public class PatientEventListener {
     message.setFrom("no-reply@pm-system.com");
     message.setTo("admin@pm-system.com"); // Placeholder for demonstration
     message.setSubject("Welcome to Patient Management System");
-    message.setText(String.format("Hello, \n\nA new patient with ID %s has been registered.", event.getPatientId()));
+    message.setText(
+        String.format(
+            "Hello, \n\nA new patient with ID %s has been registered.", event.getPatientId()));
 
     try {
       mailSender.send(message);
