@@ -1,6 +1,17 @@
 server:
   port: 8080
 
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    urls:
+      - name: Patient Service
+        url: /v3/api-docs/patient-service
+  api-docs:
+    path: /v3/api-docs
+  gateway:
+    enabled: true
+
 spring:
   application:
     name: gateway-service
@@ -34,11 +45,23 @@ spring:
                   maxBackoff: 50ms
                   factor: 2
                   basedOnPreviousValue: false
+        - id: patient-service-docs
+          uri: ${PATIENT_SERVICE_URI:http://localhost:4000}
+          predicates:
+            - Path=/v3/api-docs/patient-service
+          filters:
+            - RewritePath=/v3/api-docs/patient-service, /v3/api-docs
 
   data:
     redis:
       host: ${REDIS_HOST:localhost}
       port: 6379
+
+grpc:
+  client:
+    patient-service:
+      address: 'static://${GRPC_PATIENT_SERVICE_URI:localhost:9091}'
+      negotiation-type: plaintext
 
 resilience4j:
   circuitbreaker:

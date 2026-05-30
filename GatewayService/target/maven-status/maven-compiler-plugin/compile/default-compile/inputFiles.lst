@@ -1,6 +1,7 @@
 C:\Users\ADMIN\IdeaProjects\PatientManagementSystem\GatewayService\src\main\java\com\pm\gatewayservice\config\LoggingConfig.java
 C:\Users\ADMIN\IdeaProjects\PatientManagementSystem\GatewayService\src\main\java\com\pm\gatewayservice\config\RateLimiterConfig.java
 C:\Users\ADMIN\IdeaProjects\PatientManagementSystem\GatewayService\src\main\java\com\pm\gatewayservice\controller\FallbackController.java
+C:\Users\ADMIN\IdeaProjects\PatientManagementSystem\GatewayService\src\main\java\com\pm\gatewayservice\controller\PatientGrpcController.java
 C:\Users\ADMIN\IdeaProjects\PatientManagementSystem\GatewayService\src\main\java\com\pm\gatewayservice\exception\GlobalErrorWebExceptionHandler.java
 C:\Users\ADMIN\IdeaProjects\PatientManagementSystem\GatewayService\src\main\java\com\pm\gatewayservice\GatewayServiceApplication.java
 C:\Users\ADMIN\IdeaProjects\PatientManagementSystem\GatewayService\target\generated-sources\protobuf\grpc-java\com\pm\patientservice\grpc\PatientGrpcServiceGrpc.java

@@ -28,6 +28,7 @@ com\pm\patientservice\grpc\PatientResponseOrBuilder.class
 com\pm\patientservice\grpc\Empty.class
 com\pm\patientservice\grpc\PatientListResponse$1.class
 com\pm\patientservice\grpc\PatientResponse$Builder.class
+com\pm\gatewayservice\controller\PatientGrpcController.class
 com\pm\patientservice\grpc\PatientRequestOrBuilder.class
 com\pm\patientservice\grpc\Empty$Builder.class
 com\pm\patientservice\grpc\PatientGrpcServiceGrpc$PatientGrpcServiceFutureStub.class

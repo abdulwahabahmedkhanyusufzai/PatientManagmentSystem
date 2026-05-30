@@ -3,32 +3,40 @@ kind: Service
 metadata:
   name: patient-service
 spec:
-  type: LoadBalancer
   ports:
-    - port: 4000
+    - name: http
+      port: 4000
       targetPort: 4000
+    - name: grpc
+      port: 9091
+      targetPort: 9091
   selector:
     app: patient-service
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: patient-service
+  name: patient-service-v1
 spec:
   replicas: 2
   selector:
     matchLabels:
       app: patient-service
+      version: v1
   template:
     metadata:
       labels:
         app: patient-service
+        version: v1
+      annotations:
+        sidecar.istio.io/inject: "true"
     spec:
       containers:
         - name: patient-service
           image: patient-service:latest
           ports:
             - containerPort: 4000
+            - containerPort: 9091
           env:
             - name: SPRING_DATASOURCE_URL
               value: jdbc:postgresql://patient-db:5432/patientdb
@@ -56,9 +64,9 @@ kind: Service
 metadata:
   name: gateway-service
 spec:
-  type: LoadBalancer
   ports:
-    - port: 8080
+    - name: http
+      port: 8080
       targetPort: 8080
   selector:
     app: gateway-service
@@ -76,6 +84,8 @@ spec:
     metadata:
       labels:
         app: gateway-service
+      annotations:
+        sidecar.istio.io/inject: "true"
     spec:
       containers:
         - name: gateway-service
