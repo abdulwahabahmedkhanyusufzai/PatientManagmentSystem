@@ -21,3 +21,11 @@ A robust, planetary-scale-ready microservices system built with modern engineeri
 *   **GatewayService:** API Gateway, Rate Limiting, Resilience, Logging.
 *   **PatientService:** Core CRUD, OAuth2 Security, Contract Provider.
 *   **Infrastructure:** PostgreSQL, Redis, Prometheus, Grafana.
+
+## ⚡ Cloud-Native Optimization
+* Java services now use production Docker defaults (multi-stage builds, non-root runtime, JVM container memory flags).
+* Production runtime tuning is available via `SPRING_PROFILES_ACTIVE=prod` in each service.
+* Kubernetes manifests now include resource requests/limits and startup probes for safer scheduling and faster restarts.
+* Autoscaling and disruption safety are defined in `/home/runner/work/PatientManagmentSystem/PatientManagmentSystem/abdulwahabahmedkhanyusufzai/PatientManagmentSystem/k8s/autoscaling.yaml`.
+* CI now enforces startup-time, memory, and image-size budgets with scripts under `/home/runner/work/PatientManagmentSystem/PatientManagmentSystem/abdulwahabahmedkhanyusufzai/PatientManagmentSystem/scripts/perf`.
+* Frontend production container serves compressed static assets with immutable cache headers.

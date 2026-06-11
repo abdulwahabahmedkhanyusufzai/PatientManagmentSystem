@@ -23,6 +23,15 @@ jobs:
     - name: Build and Test with Maven
       run: mvn clean package
 
+    - name: Enforce startup-time budget
+      run: bash ./scripts/perf/check_startup_time.sh
+
+    - name: Enforce memory budget
+      run: bash ./scripts/perf/check_memory_budget.sh
+
+    - name: Enforce image-size budget
+      run: bash ./scripts/perf/check_image_sizes.sh
+
     - name: Run Snyk to check for vulnerabilities
       uses: snyk/actions/maven@master
       env:

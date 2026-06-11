@@ -54,6 +54,9 @@ services:
       - "4000:4000"
       - "9091:9091"
     environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_CLOUD_VAULT_ENABLED=false
+      - SPRING_CONFIG_IMPORT=optional:vault://
       - SPRING_DATASOURCE_URL=jdbc:postgresql://${DB_HOST}:${DB_PORT}/${POSTGRES_DB}
       - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
       - SPRING_DATASOURCE_USERNAME=${POSTGRES_USER}
@@ -76,14 +79,57 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - SPRING_CLOUD_GATEWAY_ROUTES_0_ID=patient-service
-      - SPRING_CLOUD_GATEWAY_ROUTES_0_URI=http://patient-service:4000
-      - SPRING_CLOUD_GATEWAY_ROUTES_0_PREDICATES_0=Path=/patients/**
+      - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_CLOUD_VAULT_ENABLED=false
+      - SPRING_CONFIG_IMPORT=optional:vault://
+      - PATIENT_SERVICE_URI=http://patient-service:4000
       - REDIS_HOST=redis
-      - GRPC_PATIENT_SERVICE_URI=patient-service:9091
+      - GRPC_CLIENT_PATIENT_SERVICE_ADDRESS=static://patient-service:9091
     depends_on:
       - patient-service
       - redis
+
+  notification-service:
+    build:
+      context: ./NotificationService
+      dockerfile: Dockerfile
+    container_name: notification-service
+    ports:
+      - "4001:4001"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+      - SPRING_MAIL_HOST=mailhog
+      - SPRING_MAIL_PORT=1025
+    depends_on:
+      kafka:
+        condition: service_healthy
+      mailhog:
+        condition: service_started
+
+  ai-chat-service:
+    build:
+      context: ./AiChatService
+      dockerfile: Dockerfile
+    container_name: ai-chat-service
+    ports:
+      - "4002:4002"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - PATIENT_SERVICE_GRPC_URI=patient-service:9091
+    depends_on:
+      - patient-service
+
+  patient-dashboard:
+    build:
+      context: ./PatientDashboard
+      dockerfile: Dockerfile
+    container_name: patient-dashboard
+    ports:
+      - "4200:80"
+    depends_on:
+      - gateway-service
 
   prometheus:
     image: prom/prometheus:latest
@@ -136,6 +182,4 @@ services:
       - "8025:8025"
 
 volumes:
-  postgres-data:
-:
   postgres-data:
