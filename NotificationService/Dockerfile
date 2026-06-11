@@ -11,5 +11,5 @@ RUN addgroup -S spring && adduser -S spring -G spring
 COPY --from=build /app/target/*.jar /app/app.jar
 USER spring:spring
 ENV JAVA_TOOL_OPTIONS="-XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0 -XX:InitialRAMPercentage=25.0 -XX:+UseSerialGC -XX:+ExitOnOutOfMemoryError"
-EXPOSE 4000 9091
+EXPOSE 4001
 ENTRYPOINT ["java", "-jar", "/app/app.jar"]

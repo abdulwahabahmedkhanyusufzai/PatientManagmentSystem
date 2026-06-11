@@ -22,12 +22,29 @@ spec:
             - containerPort: 4000
             - containerPort: 9091
           env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: prod
+            - name: SPRING_CLOUD_VAULT_ENABLED
+              value: "false"
             - name: SPRING_DATASOURCE_URL
               value: jdbc:postgresql://patient-db:5432/patientdb
             - name: SPRING_DATASOURCE_USERNAME
               value: postgres
             - name: SPRING_DATASOURCE_PASSWORD
               value: postgres
+          resources:
+            requests:
+              cpu: 250m
+              memory: 384Mi
+            limits:
+              cpu: 1
+              memory: 768Mi
+          startupProbe:
+            httpGet:
+              path: /actuator/health
+              port: 4000
+            failureThreshold: 30
+            periodSeconds: 5
           livenessProbe:
             httpGet:
               path: /actuator/health
