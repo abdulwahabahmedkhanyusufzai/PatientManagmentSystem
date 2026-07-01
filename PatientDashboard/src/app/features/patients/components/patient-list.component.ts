@@ -133,6 +133,7 @@ export class PatientListComponent implements OnInit {
   readonly Mail = Mail;
   readonly MapPin = MapPin;
   readonly Calendar = Calendar;
+  readonly LogOut = LogOut;
 
   ngOnInit() {
     this.store.loadAll();
