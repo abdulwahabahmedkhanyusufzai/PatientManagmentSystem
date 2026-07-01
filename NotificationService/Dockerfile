@@ -9,7 +9,7 @@ WORKDIR /app
 COPY pom.xml .
 RUN mvn -B -ntp dependency:go-offline
 COPY src ./src
-ENV NATIVE_IMAGE_USER_ARGS="-J-Xmx1536m"
+ENV NATIVE_IMAGE_USER_ARGS="-J-Xmx3g"
 RUN mvn -B -ntp -Pnative native:compile -DskipTests
 
 FROM gcr.io/distroless/base-debian12
