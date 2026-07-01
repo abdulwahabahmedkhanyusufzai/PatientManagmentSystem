@@ -1,6 +1,6 @@
 # Patient Management System (Google-Level Architecture)
 
-A robust, planetary-scale-ready microservices system built with modern engineering excellence.
+A robust, planetary-scale-ready microservices system built with modern engineering excellence
 
 ## 🚀 Advanced Architecture Features
 *   **Zero-Trust Security:** Fully transformed into an **OAuth2 Resource Server** using JWT validation. Move beyond Basic Auth to standard Identity Provider integration.
