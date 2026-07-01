@@ -1,15 +1,19 @@
-FROM maven:3.9.9-eclipse-temurin-17-alpine AS build
+FROM maven:3.9.9-eclipse-temurin-17-alpine AS maven-base
+
+FROM ghcr.io/graalvm/native-image-community:17-ol9 AS build
+# Copy maven from maven image
+COPY --from=maven-base /usr/share/maven /usr/share/maven
+RUN ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
+
 WORKDIR /app
 COPY pom.xml .
 RUN mvn -B -ntp dependency:go-offline
 COPY src ./src
-RUN mvn -B -ntp -DskipTests clean package
+RUN mvn -B -ntp -Pnative native:compile -DskipTests
 
-FROM eclipse-temurin:17-jre-alpine
+FROM gcr.io/distroless/base-debian12
 WORKDIR /app
-RUN addgroup -S spring && adduser -S spring -G spring
-COPY --from=build /app/target/*.jar /app/app.jar
-USER spring:spring
-ENV JAVA_TOOL_OPTIONS="-XX:+UseContainerSupport -XX:MaxRAMPercentage=50.0 -XX:+UseSerialGC -XX:+TieredCompilation -XX:TieredStopAtLevel=1 -XX:ActiveProcessorCount=1 -XX:MaxMetaspaceSize=75m -XX:ReservedCodeCacheSize=40m -Xss256k -XX:+ExitOnOutOfMemoryError"
+USER nonroot:nonroot
+COPY --from=build /app/target/PatientService /app/patientservice
 EXPOSE 4000 9091
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+ENTRYPOINT ["/app/patientservice"]

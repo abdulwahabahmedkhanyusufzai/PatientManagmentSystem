@@ -86,11 +86,11 @@ services:
       - SPRING_SECURITY_USER_PASSWORD=${SPRING_SECURITY_USER_PASSWORD}
       - SPRING_JPA_HIBERNATE_DDL_AUTO=validate
       - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
-    mem_limit: 256m
+    mem_limit: 128m
     deploy:
       resources:
         limits:
-          memory: 256M
+          memory: 128M
           cpus: '0.40'
     depends_on:
       db:
@@ -112,11 +112,11 @@ services:
       - PATIENT_SERVICE_URI=http://patient-service:4000
       - REDIS_HOST=redis
       - GRPC_CLIENT_PATIENT_SERVICE_ADDRESS=static://patient-service:9091
-    mem_limit: 256m
+    mem_limit: 128m
     deploy:
       resources:
         limits:
-          memory: 256M
+          memory: 128M
           cpus: '0.40'
     depends_on:
       - patient-service
@@ -134,11 +134,11 @@ services:
       - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
       - SPRING_MAIL_HOST=mailhog
       - SPRING_MAIL_PORT=1025
-    mem_limit: 256m
+    mem_limit: 128m
     deploy:
       resources:
         limits:
-          memory: 256M
+          memory: 128M
           cpus: '0.30'
     depends_on:
       kafka:
@@ -157,11 +157,11 @@ services:
       - SPRING_PROFILES_ACTIVE=prod
       - OPENAI_API_KEY=${OPENAI_API_KEY}
       - PATIENT_SERVICE_GRPC_URI=patient-service:9091
-    mem_limit: 256m
+    mem_limit: 128m
     deploy:
       resources:
         limits:
-          memory: 256M
+          memory: 128M
           cpus: '0.30'
     depends_on:
       - patient-service
