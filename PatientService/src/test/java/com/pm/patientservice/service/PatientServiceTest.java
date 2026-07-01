@@ -6,11 +6,14 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pm.patientservice.dto.PatientRequestDTO;
 import com.pm.patientservice.dto.PatientResponseDTO;
 import com.pm.patientservice.exception.EmailAlreadyExistsException;
 import com.pm.patientservice.exception.PatientNotFoundException;
+import com.pm.patientservice.model.OutboxEvent;
 import com.pm.patientservice.model.Patient;
+import com.pm.patientservice.repository.OutboxRepository;
 import com.pm.patientservice.repository.PatientRepository;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -27,12 +30,14 @@ import org.mockito.junit.jupiter.MockitoExtension;
 class PatientServiceTest {
 
   @Mock private PatientRepository patientRepository;
+  @Mock private OutboxRepository outboxRepository;
+  private final ObjectMapper objectMapper = new ObjectMapper();
 
   private PatientService patientService;
 
   @BeforeEach
   void setUp() {
-    patientService = new PatientService(patientRepository);
+    patientService = new PatientService(patientRepository, outboxRepository, objectMapper);
   }
 
   @Test
@@ -104,6 +109,7 @@ class PatientServiceTest {
     assertThat(result.getName()).isEqualTo("Jane Doe");
     assertThat(result.getEmail()).isEqualTo("jane.doe@example.com");
     verify(patientRepository).save(any(Patient.class));
+    verify(outboxRepository).save(any(OutboxEvent.class));
   }
 
   @Test
