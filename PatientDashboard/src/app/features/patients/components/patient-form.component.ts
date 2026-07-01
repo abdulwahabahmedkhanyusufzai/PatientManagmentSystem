@@ -2,7 +2,7 @@ import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PatientRequest } from '../models/patient.model';
-import { LucideAngularModule, X, Save } from '@lucide/angular';
+import { LucideAngularModule, X, Save } from 'lucide-angular';
 
 @Component({
   selector: 'app-patient-form',

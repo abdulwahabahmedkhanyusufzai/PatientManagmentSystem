@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { PatientStore } from '../store/patient.store';
 import { PatientFormComponent } from './patient-form.component';
 import { ChatWidgetComponent } from '../../../shared/components/chat-widget.component';
-import { LucideAngularModule, UserPlus, Trash2, Mail, MapPin, Calendar, LogOut } from '@lucide/angular';
+import { LucideAngularModule, UserPlus, Trash2, Mail, MapPin, Calendar, LogOut } from 'lucide-angular';
 
 @Component({
   selector: 'app-patient-list',
