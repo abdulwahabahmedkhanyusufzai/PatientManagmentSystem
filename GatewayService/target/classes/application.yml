@@ -21,6 +21,18 @@ spring:
       simple:
         enabled: false
     gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:4200"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders: "*"
+            allowCredentials: true
       routes:
         - id: patient-service
           uri: ${PATIENT_SERVICE_URI:http://localhost:4000}
@@ -51,16 +63,26 @@ spring:
             - Path=/v3/api-docs/patient-service
           filters:
             - RewritePath=/v3/api-docs/patient-service, /v3/api-docs
+        - id: auth-service
+          uri: http://keycloak:8080
+          predicates:
+            - Path=/auth/**
+          filters:
+            - RewritePath=/auth/(?<segment>.*), /realms/patient-realm/$${segment}
+        - id: ai-chat-service
+          uri: ${AI_CHAT_SERVICE_URI:http://localhost:4002}
+          predicates:
+            - Path=/chat/**
 
   data:
     redis:
-      host: ${REDIS_HOST:localhost}
+      # host will be fetched from Vault
       port: 6379
 
 grpc:
   client:
     patient-service:
-      address: 'static://${GRPC_PATIENT_SERVICE_URI:localhost:9091}'
+      # address will be fetched from Vault
       negotiation-type: plaintext
 
 resilience4j:

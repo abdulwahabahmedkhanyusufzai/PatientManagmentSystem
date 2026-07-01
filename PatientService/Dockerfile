@@ -10,6 +10,6 @@ WORKDIR /app
 RUN addgroup -S spring && adduser -S spring -G spring
 COPY --from=build /app/target/*.jar /app/app.jar
 USER spring:spring
-ENV JAVA_TOOL_OPTIONS="-XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0 -XX:InitialRAMPercentage=25.0 -XX:+UseSerialGC -XX:+ExitOnOutOfMemoryError"
+ENV JAVA_TOOL_OPTIONS="-XX:+UseContainerSupport -XX:MaxRAMPercentage=50.0 -XX:+UseSerialGC -XX:+TieredCompilation -XX:TieredStopAtLevel=1 -XX:ActiveProcessorCount=1 -XX:MaxMetaspaceSize=75m -XX:ReservedCodeCacheSize=40m -Xss256k -XX:+ExitOnOutOfMemoryError"
 EXPOSE 4000 9091
 ENTRYPOINT ["java", "-jar", "/app/app.jar"]

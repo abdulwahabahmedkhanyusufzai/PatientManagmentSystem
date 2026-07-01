@@ -25,7 +25,7 @@ public class AiAgentTools {
   public Function<PatientListRequest, PatientListResponse> getPatientList() {
     return request -> {
       com.pm.patientservice.grpc.PatientListResponse response =
-          patientStub.getPatients(Empty.newBuilder().build());
+          patientStub.getAllPatients(Empty.newBuilder().build());
       String patients =
           response.getPatientsList().stream()
               .map(
