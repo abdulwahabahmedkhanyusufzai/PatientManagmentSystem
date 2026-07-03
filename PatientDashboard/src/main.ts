@@ -1,6 +1,5 @@
-import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
-import { App } from './app/app';
+import './style.css';
+import './router';
 
-bootstrapApplication(App, appConfig)
-  .catch((err) => console.error(err));
+// The router initializes and resolves routes on boot.
+console.log('MediFlow App Initialized via Navigo Router.');
