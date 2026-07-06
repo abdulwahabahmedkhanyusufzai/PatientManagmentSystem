@@ -510,9 +510,9 @@ router
       renderPage(renderLogin());
     }
   })
-  .on('/dashboard', () => checkAuthAndRender('Clinic Overview', renderDashboard(), '/dashboard'))
-  .on('/patients', () => checkAuthAndRender('Patient Registry', renderPatients(), '/patients'))
-  .on('/appointments', () => checkAuthAndRender('Appointment Scheduler', renderAppointments(), '/appointments'))
+  .on('/dashboard', () => checkAuthAndRender('Clinic Overview', renderDashboard, '/dashboard'))
+  .on('/patients', () => checkAuthAndRender('Patient Registry', renderPatients, '/patients'))
+  .on('/appointments', () => checkAuthAndRender('Appointment Scheduler', renderAppointments, '/appointments'))
   .on('/about', () => renderPage(renderAbout()))
   .on('/contact', () => renderPage(renderContact()))
   .resolve();
