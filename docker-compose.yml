@@ -122,6 +122,10 @@ services:
       - SPRING_PROFILES_ACTIVE=prod
       - OPENAI_API_KEY=${OPENAI_API_KEY}
       - PATIENT_SERVICE_URL=http://patient-service:4000
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/patientdb
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=google_level_password_123
     mem_limit: 128m
     deploy:
       resources:
