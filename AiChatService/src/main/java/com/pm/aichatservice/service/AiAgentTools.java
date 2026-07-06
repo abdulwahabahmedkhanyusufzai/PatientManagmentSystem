@@ -13,8 +13,12 @@ import org.springframework.web.client.RestClient;
 @Configuration
 public class AiAgentTools {
 
-  @Value("${patient.service.url:http://localhost:4000}")
-  private String patientServiceUrl;
+  private final RestClient restClient;
+
+  public AiAgentTools(
+      @Value("${patient.service.url:http://localhost:4000}") String patientServiceUrl) {
+    this.restClient = RestClient.create(patientServiceUrl);
+  }
 
   public record PatientListRequest(String query) {}
 
@@ -26,7 +30,6 @@ public class AiAgentTools {
   @Description("Get a list of all patients from the system")
   public Function<PatientListRequest, PatientListResponse> getPatientList() {
     return request -> {
-      RestClient restClient = RestClient.create(patientServiceUrl);
       List<PatientResponse> response =
           restClient
               .get()
