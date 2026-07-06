@@ -76,6 +76,22 @@ async function loadPatientsFromAPI() {
   }
 }
 
+async function updateDashboardStats() {
+  try {
+    const response = await fetch('http://localhost:4000/patients');
+    if (response.ok) {
+      const data = await response.json();
+      const element = document.getElementById('dashboard-total-patients');
+      if (element) {
+        element.textContent = data.length.toLocaleString();
+      }
+    }
+  } catch (e) {
+    console.warn('Failed to load total patients count from backend:', e);
+  }
+}
+
+
 function setupPatientsListeners() {
   const registerBtn = document.getElementById('btn-register-patient');
   const modal = document.getElementById('register-modal');
@@ -293,6 +309,10 @@ function setupPageInteractions() {
   }
 
   // Page Specific Bindings
+  if (document.getElementById('dashboard-total-patients')) {
+    updateDashboardStats();
+  }
+
   if (document.getElementById('patients-table-body')) {
     setupPatientsListeners();
     loadPatientsFromAPI();
@@ -377,7 +397,7 @@ function renderAppShell(title: string, content: string, activeRoute: string): st
               <span class="user-role">Lead Cardiologist</span>
             </div>
           </div>
-          <a href="/" class="btn btn-secondary" style="width: 100%; margin-top: 1.25rem; text-align: center; font-size: 0.85rem;" data-navigo>Logout</a>
+          <a href="/" onclick="sessionStorage.removeItem('isLoggedIn');" class="btn btn-secondary" style="width: 100%; margin-top: 1.25rem; text-align: center; font-size: 0.85rem;" data-navigo>Logout</a>
         </div>
       </aside>
 
@@ -466,12 +486,33 @@ function renderAppShell(title: string, content: string, activeRoute: string): st
   `;
 }
 
+function checkAuthAndRender(title: string, renderFunc: () => string, activeRoute: string) {
+  const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+  if (!isLoggedIn) {
+    router.navigate('/login');
+    return;
+  }
+  renderPage(renderAppShell(title, renderFunc(), activeRoute));
+}
+
 router
-  .on('/', () => renderPage(renderLanding()))
-  .on('/login', () => renderPage(renderLogin()))
-  .on('/dashboard', () => renderPage(renderAppShell('Clinic Overview', renderDashboard(), '/dashboard')))
-  .on('/patients', () => renderPage(renderAppShell('Patient Registry', renderPatients(), '/patients')))
-  .on('/appointments', () => renderPage(renderAppShell('Appointment Scheduler', renderAppointments(), '/appointments')))
+  .on('/', () => {
+    if (sessionStorage.getItem('isLoggedIn') === 'true') {
+      router.navigate('/dashboard');
+    } else {
+      renderPage(renderLanding());
+    }
+  })
+  .on('/login', () => {
+    if (sessionStorage.getItem('isLoggedIn') === 'true') {
+      router.navigate('/dashboard');
+    } else {
+      renderPage(renderLogin());
+    }
+  })
+  .on('/dashboard', () => checkAuthAndRender('Clinic Overview', renderDashboard(), '/dashboard'))
+  .on('/patients', () => checkAuthAndRender('Patient Registry', renderPatients(), '/patients'))
+  .on('/appointments', () => checkAuthAndRender('Appointment Scheduler', renderAppointments(), '/appointments'))
   .on('/about', () => renderPage(renderAbout()))
   .on('/contact', () => renderPage(renderContact()))
   .resolve();

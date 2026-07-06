@@ -6,7 +6,7 @@ export function renderDashboard(): string {
       <div class="stat-card-premium">
         <div class="stat-info">
           <span class="stat-label">Total Patients Managed</span>
-          <span class="stat-value">1,482</span>
+          <span class="stat-value" id="dashboard-total-patients">1,482</span>
           <span class="stat-trend up">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
               <polyline points="18 15 12 9 6 15"/>

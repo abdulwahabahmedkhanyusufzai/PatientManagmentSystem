@@ -23,7 +23,7 @@ export function renderLogin(): string {
             <p>Access your provider workspace and secure records.</p>
           </div>
 
-          <form class="auth-form" onsubmit="event.preventDefault(); window.location.hash = '#/dashboard';">
+          <form class="auth-form" onsubmit="event.preventDefault(); sessionStorage.setItem('isLoggedIn', 'true'); window.location.hash = '#/dashboard';">
             <div class="form-group">
               <label class="form-label" for="email">Work Email Address</label>
               <input type="email" id="email" class="form-input" placeholder="dr.smith@mediflow.com" required value="demo.provider@mediflow.com" />
