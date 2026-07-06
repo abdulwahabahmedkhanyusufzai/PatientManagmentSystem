@@ -57,7 +57,7 @@ services:
     build:
       context: ./PatientService
       dockerfile: Dockerfile
-    image: ghcr.io/abdulwahabahmedkhanyusufzai/patient-service:sha-07e88ae
+    image: ghcr.io/abdulwahabahmedkhanyusufzai/patient-service:sha-d918778
     container_name: patient-service
     ports:
       - "4000:4000"
@@ -89,7 +89,7 @@ services:
     build:
       context: ./NotificationService
       dockerfile: Dockerfile
-    image: ghcr.io/abdulwahabahmedkhanyusufzai/notification-service:sha-07e88ae
+    image: ghcr.io/abdulwahabahmedkhanyusufzai/notification-service:sha-d918778
     container_name: notification-service
     ports:
       - "4001:4001"
@@ -114,7 +114,7 @@ services:
     build:
       context: ./AiChatService
       dockerfile: Dockerfile
-    image: ghcr.io/abdulwahabahmedkhanyusufzai/ai-chat-service:sha-07e88ae
+    image: ghcr.io/abdulwahabahmedkhanyusufzai/ai-chat-service:sha-d918778
     container_name: ai-chat-service
     ports:
       - "4002:4002"
@@ -135,7 +135,7 @@ services:
     build:
       context: ./PatientDashboard
       dockerfile: Dockerfile
-    image: ghcr.io/abdulwahabahmedkhanyusufzai/patient-dashboard:sha-07e88ae
+    image: ghcr.io/abdulwahabahmedkhanyusufzai/patient-dashboard:sha-d918778
     container_name: patient-dashboard
     ports:
       - "4200:80"
