@@ -12,9 +12,11 @@ COPY src ./src
 ENV NATIVE_IMAGE_USER_ARGS="-J-Xmx3g"
 RUN mvn -B -ntp -Pnative native:compile -DskipTests
 
-FROM gcr.io/distroless/base-debian12:debug
+FROM debian:bookworm-slim
+RUN apt-get update && apt-get install -y zlib1g && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
-USER nonroot:nonroot
+RUN useradd -u 10001 -m nonroot
+USER nonroot
 COPY --from=build /app/target/NotificationService /app/notificationservice
 EXPOSE 4001
 ENTRYPOINT ["/app/notificationservice"]
