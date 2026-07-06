@@ -16,8 +16,6 @@ PORT=18080
 MAX_STARTUP_SECONDS=45
 START_TIME="$(date +%s)"
 
-SPRING_CLOUD_VAULT_ENABLED=false \
-SPRING_CONFIG_IMPORT=optional:vault:// \
 SERVER_PORT="${PORT}" \
 java -jar "${JAR_PATH}" >/tmp/patient-service-startup.log 2>&1 &
 APP_PID=$!

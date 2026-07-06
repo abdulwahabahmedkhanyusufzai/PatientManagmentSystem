@@ -77,8 +77,6 @@ services:
       - "9091:9091"
     environment:
       - SPRING_PROFILES_ACTIVE=prod
-      - SPRING_CLOUD_VAULT_ENABLED=false
-      - SPRING_CONFIG_IMPORT=optional:vault://
       - SPRING_DATASOURCE_URL=jdbc:postgresql://${DB_HOST}:${DB_PORT}/${POSTGRES_DB}
       - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
       - SPRING_DATASOURCE_USERNAME=${POSTGRES_USER}
@@ -109,8 +107,6 @@ services:
       - "8080:8080"
     environment:
       - SPRING_PROFILES_ACTIVE=prod
-      - SPRING_CLOUD_VAULT_ENABLED=false
-      - SPRING_CONFIG_IMPORT=optional:vault://
       - PATIENT_SERVICE_URI=http://patient-service:4000
       - REDIS_HOST=redis
       - GRPC_CLIENT_PATIENT_SERVICE_ADDRESS=static://patient-service:9091
@@ -219,22 +215,6 @@ services:
     depends_on:
       - prometheus
 
-  vault:
-    image: hashicorp/vault:latest
-    container_name: vault
-    ports:
-      - "8200:8200"
-    environment:
-      - VAULT_DEV_ROOT_TOKEN_ID=root
-      - VAULT_ADDR=http://0.0.0.0:8200
-    cap_add:
-      - IPC_LOCK
-    mem_limit: 64m
-    deploy:
-      resources:
-        limits:
-          memory: 64M
-          cpus: '0.10'
 
   keycloak:
     image: quay.io/keycloak/keycloak:24.0.0

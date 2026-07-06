@@ -15,8 +15,6 @@ fi
 PORT=18081
 MAX_RSS_KB=650000
 
-SPRING_CLOUD_VAULT_ENABLED=false \
-SPRING_CONFIG_IMPORT=optional:vault:// \
 SERVER_PORT="${PORT}" \
 java -jar "${JAR_PATH}" >/tmp/patient-service-memory.log 2>&1 &
 APP_PID=$!
