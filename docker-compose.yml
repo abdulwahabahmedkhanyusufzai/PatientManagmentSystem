@@ -74,7 +74,6 @@ services:
     container_name: patient-service
     ports:
       - "4000:4000"
-      - "9091:9091"
     environment:
       - SPRING_PROFILES_ACTIVE=prod
       - SPRING_DATASOURCE_URL=jdbc:postgresql://${DB_HOST}:${DB_PORT}/${POSTGRES_DB}
@@ -109,7 +108,6 @@ services:
       - SPRING_PROFILES_ACTIVE=prod
       - PATIENT_SERVICE_URI=http://patient-service:4000
       - REDIS_HOST=redis
-      - GRPC_CLIENT_PATIENT_SERVICE_ADDRESS=static://patient-service:9091
     mem_limit: 128m
     deploy:
       resources:
@@ -156,7 +154,7 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=prod
       - OPENAI_API_KEY=${OPENAI_API_KEY}
-      - PATIENT_SERVICE_GRPC_URI=patient-service:9091
+      - PATIENT_SERVICE_URL=http://patient-service:4000
     mem_limit: 128m
     deploy:
       resources:
