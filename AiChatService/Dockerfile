@@ -12,7 +12,7 @@ COPY src ./src
 ENV NATIVE_IMAGE_USER_ARGS="-J-Xmx3g"
 RUN mvn -B -ntp -Pnative native:compile -DskipTests
 
-FROM gcr.io/distroless/base-debian12
+FROM gcr.io/distroless/base-debian12:debug
 WORKDIR /app
 USER nonroot:nonroot
 COPY --from=build /app/target/AiChatService /app/aichatservice
