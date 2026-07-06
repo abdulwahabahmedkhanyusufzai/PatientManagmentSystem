@@ -25,8 +25,7 @@ spec:
       labels:
         app: patient-service
         version: v1
-      annotations:
-        sidecar.istio.io/inject: "true"
+
     spec:
       containers:
         - name: patient-service
@@ -96,8 +95,7 @@ spec:
     metadata:
       labels:
         app: gateway-service
-      annotations:
-        sidecar.istio.io/inject: "true"
+
     spec:
       containers:
         - name: gateway-service

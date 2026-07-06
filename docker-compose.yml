@@ -183,24 +183,6 @@ services:
 
 
 
-  keycloak:
-    image: quay.io/keycloak/keycloak:24.0.0
-    container_name: keycloak
-    command: start-dev
-    environment:
-      - KC_BOOTSTRAP_ADMIN_USERNAME=admin
-      - KC_BOOTSTRAP_ADMIN_PASSWORD=admin
-      - KC_HTTP_ENABLED=true
-      - KC_HOSTNAME_STRICT=false
-      - JAVA_OPTS_APPEND=-Xms128m -Xmx192m -XX:MaxMetaspaceSize=96m -XX:+UseSerialGC -XX:+TieredCompilation -XX:TieredStopAtLevel=1
-    ports:
-      - "8081:8080"
-    mem_limit: 384m
-    deploy:
-      resources:
-        limits:
-          memory: 384M
-          cpus: '0.50'
 
   mailhog:
     image: mailhog/mailhog:latest

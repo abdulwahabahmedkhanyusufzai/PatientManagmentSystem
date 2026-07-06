@@ -2,8 +2,6 @@ package com.pm.patientservice;
 
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
-import org.springframework.security.oauth2.jwt.JwtDecoder;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.testcontainers.containers.KafkaContainer;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
@@ -21,6 +19,4 @@ public abstract class AbstractIntegrationTest {
   @Container @ServiceConnection
   static KafkaContainer kafka =
       new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:7.6.1"));
-
-  @MockitoBean private JwtDecoder jwtDecoder;
 }

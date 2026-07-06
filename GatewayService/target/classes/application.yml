@@ -101,14 +101,10 @@ management:
   endpoints:
     web:
       exposure:
-        include: health,prometheus
+        include: health
   endpoint:
     health:
       show-details: always
-  prometheus:
-    metrics:
-      export:
-        enabled: true
   tracing:
     sampling:
       probability: 1.0

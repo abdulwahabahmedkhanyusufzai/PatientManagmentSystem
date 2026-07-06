@@ -63,12 +63,7 @@ spring:
             - Path=/v3/api-docs/patient-service
           filters:
             - RewritePath=/v3/api-docs/patient-service, /v3/api-docs
-        - id: auth-service
-          uri: http://keycloak:8080
-          predicates:
-            - Path=/auth/**
-          filters:
-            - RewritePath=/auth/(?<segment>.*), /realms/patient-realm/$${segment}
+
         - id: ai-chat-service
           uri: ${AI_CHAT_SERVICE_URI:http://localhost:4002}
           predicates:
