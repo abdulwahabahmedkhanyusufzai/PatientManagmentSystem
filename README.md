@@ -3,7 +3,6 @@
 A robust, planetary-scale-ready microservices system built with modern engineering excellence
 
 ## 🚀 Advanced Architecture Features
-*   **Zero-Trust Security:** Fully transformed into an **OAuth2 Resource Server** using JWT validation. Move beyond Basic Auth to standard Identity Provider integration.
 *   **Resilient Traffic Control:** 
     *   **Redis-backed Rate Limiting:** Protects against DDoS and noisy neighbors using a distributed token bucket algorithm.
     *   **Circuit Breakers & Retries:** Integrated **Resilience4j** to prevent cascading failures and handle transient network glitches.
@@ -18,7 +17,7 @@ A robust, planetary-scale-ready microservices system built with modern engineeri
 
 ## 🏗️ Components
 *   **GatewayService:** API Gateway, Rate Limiting, Resilience, Logging.
-*   **PatientService:** Core CRUD, OAuth2 Security, Contract Provider.
+*   **PatientService:** Core CRUD, Contract Provider.
 *   **Infrastructure:** PostgreSQL, Redis.
 
 ## ⚡ Cloud-Native Optimization
@@ -35,3 +34,5 @@ The following planetary-scale components and complex delivery patterns were remo
 *   **HashiCorp Vault (Secret Manager):** Removed Vault config dependency and initialized service credentials/addresses directly through local environment variables (standard `.env` files and `docker-compose.yml` properties).
 *   **ArgoCD & Canary Deployments:** Removed `argocd-app.yaml`, `argo-rollout.yaml`, and `app-canary.yaml` deployment manifests to simplify standard Kubernetes deployments.
 *   **Prometheus & Grafana:** Removed Prometheus metrics collection and Grafana visualization dashboard configurations.
+*   **Keycloak & Spring Security (OAuth2):** Removed Keycloak service container and all OAuth2 JWT-based access security configurations.
+*   **Istio Service Mesh:** Removed Istio routing, mutual TLS security, and container sidecar injection manifests.
