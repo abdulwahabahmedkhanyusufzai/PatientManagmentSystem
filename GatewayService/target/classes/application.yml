@@ -21,6 +21,13 @@ spring:
       simple:
         enabled: false
     gateway:
+      httpclient:
+        connect-timeout: 2000
+        response-timeout: 5s
+        pool:
+          type: elastic
+          max-connections: 500
+          acquire-timeout: 45000
       globalcors:
         cors-configurations:
           '[/**]':

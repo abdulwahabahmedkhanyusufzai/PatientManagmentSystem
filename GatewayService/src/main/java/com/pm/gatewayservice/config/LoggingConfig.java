@@ -19,7 +19,10 @@ public class LoggingConfig {
     return (exchange, chain) -> {
       long startTime = System.currentTimeMillis();
       String path = exchange.getRequest().getPath().value();
-      String method = exchange.getRequest().getMethod().name();
+      String method =
+          exchange.getRequest().getMethod() != null
+              ? exchange.getRequest().getMethod().name()
+              : "UNKNOWN";
 
       return chain
           .filter(exchange)
