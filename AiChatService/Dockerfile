@@ -1,6 +1,6 @@
-FROM maven:3.9.9-eclipse-temurin-17-alpine AS maven-base
+FROM maven:3.9.9-eclipse-temurin-21-alpine AS maven-base
 
-FROM ghcr.io/graalvm/native-image-community:17-ol9 AS build
+FROM ghcr.io/graalvm/native-image-community:21-ol9 AS build
 # Copy maven from maven image
 COPY --from=maven-base /usr/share/maven /usr/share/maven
 RUN ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
