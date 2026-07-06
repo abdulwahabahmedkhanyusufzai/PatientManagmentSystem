@@ -76,14 +76,10 @@ spring:
 
   data:
     redis:
-      # host will be fetched from Vault
+      host: ${REDIS_HOST:localhost}
       port: 6379
 
-grpc:
-  client:
-    patient-service:
-      # address will be fetched from Vault
-      negotiation-type: plaintext
+
 
 resilience4j:
   circuitbreaker:

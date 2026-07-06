@@ -11,7 +11,6 @@ A robust, planetary-scale-ready microservices system built with modern engineeri
 *   **Enterprise Observability:**
     *   **Distributed Tracing:** Full trace propagation via **Micrometer Tracing (Brave/Zipkin)**.
     *   **Structured JSON Logging:** High-performance, searchable logs compatible with ELK/Splunk.
-    *   **Prometheus & Grafana:** Comprehensive metrics scraping for real-time monitoring.
 *   **Google Engineering Standards:**
     *   **Safety:** Integrated **Google ErrorProne** for compile-time bug detection.
     *   **Consistency:** Non-negotiable code formatting via **Spotless (Google Java Format)**.
@@ -20,7 +19,7 @@ A robust, planetary-scale-ready microservices system built with modern engineeri
 ## 🏗️ Components
 *   **GatewayService:** API Gateway, Rate Limiting, Resilience, Logging.
 *   **PatientService:** Core CRUD, OAuth2 Security, Contract Provider.
-*   **Infrastructure:** PostgreSQL, Redis, Prometheus, Grafana.
+*   **Infrastructure:** PostgreSQL, Redis.
 
 ## ⚡ Cloud-Native Optimization
 * Java services now use production Docker defaults (multi-stage builds, non-root runtime, JVM container memory flags).
@@ -35,3 +34,4 @@ The following planetary-scale components and complex delivery patterns were remo
 *   **Terraform:** Removed infrastructure provisioning configurations.
 *   **HashiCorp Vault (Secret Manager):** Removed Vault config dependency and initialized service credentials/addresses directly through local environment variables (standard `.env` files and `docker-compose.yml` properties).
 *   **ArgoCD & Canary Deployments:** Removed `argocd-app.yaml`, `argo-rollout.yaml`, and `app-canary.yaml` deployment manifests to simplify standard Kubernetes deployments.
+*   **Prometheus & Grafana:** Removed Prometheus metrics collection and Grafana visualization dashboard configurations.

@@ -40,10 +40,7 @@ public class AiAgentTools {
 
       String patients =
           response.stream()
-              .map(
-                  p ->
-                      String.format(
-                          "ID: %s, Name: %s, Email: %s", p.id(), p.name(), p.email()))
+              .map(p -> String.format("ID: %s, Name: %s, Email: %s", p.id(), p.name(), p.email()))
               .collect(Collectors.joining("\n"));
       return new PatientListResponse(patients);
     };
