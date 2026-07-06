@@ -4,9 +4,7 @@ A robust, planetary-scale-ready microservices system built with modern engineeri
 
 ## 🚀 Advanced Architecture Features
 *   **Reliable Event Delivery:** Uses **Apache Kafka** and the **Transactional Outbox Pattern** to guarantee eventual consistency and publish/subscribe messaging between microservices without distributed transactions.
-*   **Resilient Traffic Control:** 
-    *   **Redis-backed Rate Limiting:** Protects against DDoS and noisy neighbors using a distributed token bucket algorithm.
-    *   **Circuit Breakers & Retries:** Integrated **Resilience4j** to prevent cascading failures and handle transient network glitches.
+*   **Resilient Traffic Control:** Integrated **Resilience4j** (Circuit Breakers & Retries) directly within services to prevent cascading failures and handle transient network glitches.
 *   **Consumer-Driven Contract Testing:** Uses **Spring Cloud Contract** to ensure API compatibility between the Gateway and downstream services, preventing breaking changes.
 *   **Enterprise Observability:**
     *   **Distributed Tracing:** Full trace propagation via **Micrometer Tracing (Brave/Zipkin)**.
@@ -17,11 +15,10 @@ A robust, planetary-scale-ready microservices system built with modern engineeri
     *   **Self-Healing:** Kubernetes manifests with precision Liveness and Readiness probes.
 
 ## 🏗️ Components
-*   **GatewayService:** API Gateway, Rate Limiting, Resilience, and Routing.
 *   **PatientService:** Core CRUD, Outbox pattern, and Contract Provider.
 *   **NotificationService:** Listens to Kafka to dispatch emails on patient events.
 *   **AiChatService:** Retrieval-Augmented Generation (RAG) AI agent for interactive patient queries.
-*   **Infrastructure:** PostgreSQL, Redis, Apache Kafka.
+*   **Infrastructure:** PostgreSQL, Apache Kafka.
 
 ## ⚡ Cloud-Native Optimization
 * Java services now use production Docker defaults (multi-stage builds, non-root runtime, JVM container memory flags).
@@ -40,3 +37,4 @@ To maintain a lean, developer-friendly continuous delivery pipeline and prioriti
 *   **Prometheus & Grafana:** Removed Prometheus metrics collection and Grafana visualization dashboard configurations.
 *   **Keycloak & Spring Security (OAuth2):** Removed Keycloak service container and all OAuth2 JWT-based access security configurations.
 *   **Istio Service Mesh:** Removed Istio routing, mutual TLS security, and container sidecar injection manifests.
+*   **API Gateway & Redis (Rate Limiting):** Removed the GatewayService application and Redis cache to simplify routing, reduce tail latency, and allow direct browser-to-service REST communication with localized CORS controls.

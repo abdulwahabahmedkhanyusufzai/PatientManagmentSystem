@@ -9,7 +9,6 @@
 
     <modules>
         <module>PatientService</module>
-        <module>GatewayService</module>
         <module>NotificationService</module>
         <module>AiChatService</module>
     </modules>

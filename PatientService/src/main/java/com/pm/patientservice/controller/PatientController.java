@@ -15,6 +15,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /** REST controller for managing patient records. */
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/patients")
 @Tag(

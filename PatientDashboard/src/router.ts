@@ -28,7 +28,7 @@ if (isDarkTheme) {
 // --------------------------------------------------------------------------
 async function loadPatientsFromAPI() {
   try {
-    const response = await fetch('http://localhost:8080/patients');
+    const response = await fetch('http://localhost:4000/patients');
     if (response.ok) {
       const data = await response.json();
       const formatted: Patient[] = data.map((p: any) => {
@@ -109,7 +109,7 @@ function setupPatientsListeners() {
       const dateOfBirth = (document.getElementById('reg-dob') as HTMLInputElement).value;
 
       try {
-        const response = await fetch('http://localhost:8080/patients', {
+        const response = await fetch('http://localhost:4000/patients', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ name, email, address, dateOfBirth })
@@ -211,7 +211,7 @@ function setupAiChat() {
     activeChatBody.scrollTop = activeChatBody.scrollHeight;
 
     try {
-      const response = await fetch(`http://localhost:8080/chat?message=${encodeURIComponent(text)}`);
+      const response = await fetch(`http://localhost:4002/chat?message=${encodeURIComponent(text)}`);
       activeChatBody.removeChild(typingDiv);
       if (response.ok) {
         const reply = await response.text();
