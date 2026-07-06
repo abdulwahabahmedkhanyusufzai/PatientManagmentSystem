@@ -50,7 +50,7 @@ services:
     healthcheck:
       test: ["CMD-SHELL", "/opt/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --list"]
       interval: 10s
-      timeout: 5s
+      timeout: 15s
       retries: 5
 
   patient-service:
@@ -63,10 +63,10 @@ services:
       - "4000:4000"
     environment:
       - SPRING_PROFILES_ACTIVE=prod
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://${DB_HOST:-db}:${DB_PORT:-5432}/${POSTGRES_DB:-patientdb}
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/patientdb
       - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
-      - SPRING_DATASOURCE_USERNAME=${POSTGRES_USER:-postgres}
-      - SPRING_DATASOURCE_PASSWORD=${POSTGRES_PASSWORD:-google_level_password_123}
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=google_level_password_123
       - SPRING_SECURITY_USER_NAME=${SPRING_SECURITY_USER_NAME}
       - SPRING_SECURITY_USER_PASSWORD=${SPRING_SECURITY_USER_PASSWORD}
       - SPRING_JPA_HIBERNATE_DDL_AUTO=validate
