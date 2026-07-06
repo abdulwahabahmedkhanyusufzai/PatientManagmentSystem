@@ -6,7 +6,6 @@ cd "$ROOT_DIR"
 
 declare -A LIMITS_MB=(
   ["patient-service"]=420
-  ["gateway-service"]=320
   ["notification-service"]=300
   ["ai-chat-service"]=360
   ["patient-dashboard"]=220
@@ -19,7 +18,6 @@ build_image() {
 }
 
 build_image patient-service PatientService
-build_image gateway-service GatewayService
 build_image notification-service NotificationService
 build_image ai-chat-service AiChatService
 build_image patient-dashboard PatientDashboard

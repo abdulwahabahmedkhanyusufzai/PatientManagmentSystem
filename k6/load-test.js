@@ -14,7 +14,7 @@ export const options = {
 };
 
 export default function () {
-  const res = http.get('http://localhost:8080/actuator/health');
+  const res = http.get('http://localhost:4000/actuator/health');
   
   check(res, {
     'is status 200': (r) => r.status === 200,

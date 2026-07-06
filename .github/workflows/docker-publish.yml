@@ -22,8 +22,6 @@ jobs:
         service:
           - name: patient-service
             context: ./PatientService
-          - name: gateway-service
-            context: ./GatewayService
           - name: notification-service
             context: ./NotificationService
           - name: ai-chat-service
