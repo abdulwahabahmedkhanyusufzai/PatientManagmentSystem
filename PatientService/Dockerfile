@@ -13,7 +13,7 @@ ENV NATIVE_IMAGE_USER_ARGS="-J-Xmx3g"
 RUN mvn -B -ntp -Pnative native:compile -DskipTests
 
 FROM debian:bookworm-slim
-RUN apt-get update && apt-get install -y zlib1g && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y libz-dev ca-certificates && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 RUN useradd -u 10001 -m nonroot
 USER nonroot
